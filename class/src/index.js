@@ -1,6 +1,3 @@
-require('dotenv').config()
-console.log(process.env) // remove this after you've confirmed it is working
-
 const express = require('express')
 const morgan = require('morgan')
 const exphbs = require('express-handlebars')
@@ -16,6 +13,8 @@ const { database } = require('./keys')
 // Initializations
 const app = express();
 require('./lib/passport')
+require('dotenv').config()
+console.log(process.env.MYSQL_HOST) // remove this after you've confirmed it is working
 moment.locale('es'); 
 
 // Settings
