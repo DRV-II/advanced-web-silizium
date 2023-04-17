@@ -1,21 +1,41 @@
 const express = require('express');
 const router = express.Router();
 const passport = require('passport');
-const { isLoggedIn, isNotLoggedIn } = require('../lib/auth');
+const { isLoggedIn, isNotLoggedIn, userExists } = require('../lib/auth');
 const { encryptPassword, matchPassword } = require('../lib/helpers')
 
 const pool = require('../database');
-
+express.urlencoded();
+// Muestra front
 router.get('/signin', isNotLoggedIn, (req, res) => {
     res.render('auth/signin')
 })
 
+// Verificación
 router.post('/signin', isNotLoggedIn, (req, res, next) => {
     passport.authenticate('local.signin', {
         successRedirect: '/profile',
         failureRedirect: '/signin',
         failureFlash: true
     })(req, res, next)
+})
+
+// Muestra front
+router.get('/signup', isNotLoggedIn, (req, res) => {
+    res.render('auth/signup')
+})
+
+// Verificación
+router.post('/signup', userExists, async (req, res, next) => {
+    const password = await encryptPassword(req.body.password)
+    pool.query('INSERT INTO user(username, password) VALUES(?,?)', [req.body.username, password], function(error, results, fields) {
+        if (error) {
+            console.log(error)
+        }
+        else {
+            res.redirect('/signin')
+        }
+    }) 
 })
 
 router.get('/profile', isLoggedIn, (req, res) => {
