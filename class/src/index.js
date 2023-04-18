@@ -14,7 +14,6 @@ const { database } = require('./keys')
 const app = express();
 require('./lib/passport')
 require('dotenv').config()
-console.log(process.env.MYSQL_HOST) // remove this after you've confirmed it is working
 moment.locale('es'); 
 
 // Settings

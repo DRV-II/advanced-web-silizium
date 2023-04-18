@@ -7,17 +7,38 @@
                     <h2 class="card-title">ITESM</h2>
                     <br>
 
-                    <form action="/signup" method="POST">
+                    <form action="/signup" method="POST" onsubmit="verificarPasswords(); return false">
                         <div class="form-group text-left">
                             <label>Usuario</label>
                             <input type="text" name="username" placeholder="Usuario" class="form-control" autofocus required>
                         </div>
                         <div class="form-group text-left">
                             <label>Contraseña</label>
-                            <input type="password" name="password" placeholder="Contraseña" class="form-control" required>
+                            <input type="password" name="password" id="password" placeholder="Contraseña" class="form-control" required>
+                        </div>
+                         <div class="form-group text-left">
+                            <label>Ingrese de nuevo la contraseña</label>
+                            <input type="password" name="repeatPassword" id="repeatPassword" placeholder="Contraseña" class="form-control" required>
+                            <script>
+                            function verificarPasswords() {
+                                if (document.getElementById('password').value !=
+                                    document.getElementById('repeatPassword').value) {
+                                    document.getElementById("button").disabled = true;
+                                    alert("Las contraseñas no coinciden")
+                                }
+                                else {
+                                    res.redirect('/signin')
+                                }
+                                setTimeout(function() {
+                                location.reload();
+                                }, 3000);
+                            
+                                return true;
+                            }
+                            </script>
                         </div>
                         <div class="form-group">
-                            <button class="btn btn-success btn-block">
+                            <button id="button" class="btn btn-success btn-block">
                                 Enviar
                             </button>
                         </div>
