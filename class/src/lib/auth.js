@@ -18,9 +18,9 @@ module.exports = {
     },
 
     async userExists(req, res, next) {
-        pool.query("SELECT * FROM User WHERE BINARY username = ?", [req.body.username], function(error, results, fields) {
+        pool.query("SELECT * FROM user WHERE BINARY username = ?", [req.body.username], function(error, results, fields) {
             if(error) {
-                console.log("ni modo pa")
+                console.log(error)
             }
             else if (results.length>0){
                 res.redirect('/signup')

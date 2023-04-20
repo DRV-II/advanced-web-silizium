@@ -27,8 +27,10 @@ SET time_zone = "+00:00";
 --
 -- Estructura de tabla para la tabla `sessions`
 --
+CREATE DATABASE IF NOT EXISTS itesm502;
+USE itesm502;
 
-CREATE TABLE `sessions` (
+CREATE TABLE IF NOT EXISTS `sessions` (
   `session_id` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
   `expires` int(11) UNSIGNED NOT NULL,
   `data` mediumtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin
@@ -47,7 +49,7 @@ INSERT INTO `sessions` (`session_id`, `expires`, `data`) VALUES
 -- Estructura de tabla para la tabla `user`
 --
 
-CREATE TABLE `user` (
+CREATE TABLE IF NOT EXISTS `user` (
   `id` int(11) NOT NULL,
   `username` varchar(16) COLLATE utf8mb4_general_ci NOT NULL,
   `password` varchar(60) COLLATE utf8mb4_general_ci NOT NULL
@@ -92,3 +94,7 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+ALTER USER 'root' IDENTIFIED WITH mysql_native_password BY 'itesm';
+
+flush privileges;

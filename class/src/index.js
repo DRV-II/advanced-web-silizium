@@ -17,7 +17,7 @@ require('dotenv').config()
 moment.locale('es'); 
 
 // Settings
-app.set('port', process.env.PORT || 4000);
+app.set('port', process.env.PORT || 3000);
 
 app.set('views', path.join(__dirname, 'views'));
 
